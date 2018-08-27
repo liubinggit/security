@@ -4,6 +4,8 @@ import java.sql.Date;
 import org.hibernate.validator.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonView;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class User {
 
 	/**
@@ -20,10 +22,12 @@ public class User {
 
 	public interface UserDetaView extends UserSimpleView {};
 
+	@ApiModelProperty(value = "用户id")
 	private int id;
 	private String username;
 	@NotBlank
 	private String password;
+	@ApiModelProperty(value = "用户生日")
 	private Date birthady; //传给前台用时间戳,由前台做处理
 
 	public User() {

@@ -19,6 +19,10 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.liubing.dto.User;
 import com.liubing.dto.User.UserDetaView;
 import com.liubing.dto.User.UserSimpleView;
+import com.liubing.exception.UserNoExistException;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("/user")
@@ -36,12 +40,22 @@ public class UserController {
 	}
 	
 	@GetMapping("/{id:\\d+}")
-	public User getOneUser(@PathVariable Integer id) {
-		User user = new User();
-		user.setId(id);
-		user.setUsername("Tom");
-		user.setPassword("password");
-		return user;
+	@ApiOperation(value="查询用户服务")
+	public User getOneUser(@ApiParam(value="用户id")@PathVariable Integer id) {
+		System.out.println("UserController getOneUser");
+		
+		if(false) {
+			//会被控制器异常拦截,会进入interceptor的postHandle
+//			throw new UserNoExistException(id);
+			
+			throw new RuntimeException("user id not exist");
+		}else {
+			User user = new User();
+			user.setId(id);
+			user.setUsername("Tom");
+			user.setPassword("password");
+			return user;
+		}
 	}
 	
 	
