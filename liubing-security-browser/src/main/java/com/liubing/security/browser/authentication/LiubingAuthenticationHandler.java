@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.liubing.security.core.properties.LoginType;
-import com.liubing.security.core.properties.SecurityPeoperties;
+import com.liubing.security.core.properties.SecurityProperties;
 
 /**
  * 登录成功跳转
@@ -31,14 +31,14 @@ public class LiubingAuthenticationHandler extends SavedRequestAwareAuthenticatio
 	private ObjectMapper objectMapper;
 	
 	@Autowired
-	private SecurityPeoperties securityPeoperties;
+	private SecurityProperties securityProperties;
 	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		log.info("登录成功");
-		log.info("LoginType: "+securityPeoperties.getBrowserProperties().getLoginType());
-		if(LoginType.JSON.equals(securityPeoperties.getBrowserProperties().getLoginType())) {
+		log.info("LoginType: "+securityProperties.getBrowser().getLoginType());
+		if(LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
 			response.setContentType("application/json;charset=UTF-8");
 			response.getWriter().write(objectMapper.writeValueAsString(authentication));
 		}else {

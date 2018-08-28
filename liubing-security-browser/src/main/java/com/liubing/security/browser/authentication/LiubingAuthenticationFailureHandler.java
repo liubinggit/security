@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.liubing.security.core.properties.LoginType;
-import com.liubing.security.core.properties.SecurityPeoperties;
+import com.liubing.security.core.properties.SecurityProperties;
 
 @Component("liubingAuthenticationFailureHandler")
 public class LiubingAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
@@ -27,14 +27,14 @@ public class LiubingAuthenticationFailureHandler extends SimpleUrlAuthentication
 	private ObjectMapper objectMapper;
 	
 	@Autowired
-	private SecurityPeoperties securityPeoperties;
+	private SecurityProperties securityProperties;
 	
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
 		log.info("登录失败");
-		log.info("LoginType: "+securityPeoperties.getBrowserProperties().getLoginType());
-		if(LoginType.JSON.equals(securityPeoperties.getBrowserProperties().getLoginType())) {
+		log.info("LoginType: "+securityProperties.getBrowser().getLoginType());
+		if(LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
 			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 			response.setContentType("application/json;charset=UTF-8");
 			response.getWriter().write(objectMapper.writeValueAsString(exception));

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.liubing.security.browser.support.SimpleResponse;
-import com.liubing.security.core.properties.SecurityPeoperties;
+import com.liubing.security.core.properties.SecurityProperties;
 
 @RestController
 public class BrowserSecurityController {
@@ -31,19 +31,19 @@ public class BrowserSecurityController {
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	
 	@Autowired
-	private SecurityPeoperties securityPeoperties;
+	private SecurityProperties securityProperties;
 	
 	@RequestMapping("/authentication/require")
 	@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
 	public SimpleResponse requireAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		System.out.println("LoginPage:"+securityPeoperties.getBrowserProperties().getLoginPage());
+		System.out.println("LoginPage:"+securityProperties.getBrowser().getLoginPage());
 		
 		SavedRequest savedRequest = requestCache.getRequest(request, response);
 		if(savedRequest != null) {
-			String targetUrl = savedRequest.getRedirectUrl();
+			String targetUrl = savedRequest.getRedirectUrl();  
 			log.info("引发跳转的url: " + targetUrl);
 			if(StringUtils.endsWithIgnoreCase(targetUrl, ".html")) {
-				redirectStrategy.sendRedirect(request, response, securityPeoperties.getBrowserProperties().getLoginPage());
+				redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getLoginPage());
 			}
 		}
 		return new SimpleResponse("访问页面需要登录");

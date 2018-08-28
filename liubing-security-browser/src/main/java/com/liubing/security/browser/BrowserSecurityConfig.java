@@ -10,13 +10,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import com.liubing.security.core.properties.SecurityPeoperties;
+import com.liubing.security.core.properties.SecurityProperties;
+
 
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private SecurityPeoperties securityPeoperties;
+	private SecurityProperties securityProperties;
 	
 	@Autowired
 	private AuthenticationSuccessHandler liubingAuthenticationHandler;
@@ -31,7 +32,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		System.out.println("LoginPage:"+securityPeoperties.getBrowserProperties().getLoginPage());
+		System.out.println("LoginPage:"+securityProperties.getBrowser().getLoginPage());
 		
 		http.formLogin()
 				.loginPage("/authentication/require")
@@ -41,7 +42,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.authorizeRequests() // 下面授权的配置
 				.antMatchers("/authentication/require",
-						securityPeoperties.getBrowserProperties().getLoginPage()).permitAll() //登录页面可以不用权限登录
+						securityProperties.getBrowser().getLoginPage()).permitAll() //登录页面可以不用权限登录
 				.anyRequest() // 任何请求
 				.authenticated()// 都需要身份认证
 				.and()
