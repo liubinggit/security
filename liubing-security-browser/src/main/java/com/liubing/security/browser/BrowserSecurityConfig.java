@@ -9,8 +9,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.liubing.security.core.properties.SecurityProperties;
+import com.liubing.security.core.validate.code.ValidateCodeFilter;
 
 
 @Configuration
@@ -34,14 +36,18 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		System.out.println("LoginPage:"+securityProperties.getBrowser().getLoginPage());
 		
-		http.formLogin()
+		ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
+		validateCodeFilter.setAuthenticationFailureHandler(liubingAuthenticationFailureHandler);
+		
+		http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+				.formLogin()
 				.loginPage("/authentication/require")
 				.loginProcessingUrl("/authentication/from") //重新设置请求路径
 				.successHandler(liubingAuthenticationHandler)
 				.failureHandler(liubingAuthenticationFailureHandler)
 				.and()
 				.authorizeRequests() // 下面授权的配置
-				.antMatchers("/authentication/require",
+				.antMatchers("/authentication/require","/code/image",
 						securityProperties.getBrowser().getLoginPage()).permitAll() //登录页面可以不用权限登录
 				.anyRequest() // 任何请求
 				.authenticated()// 都需要身份认证

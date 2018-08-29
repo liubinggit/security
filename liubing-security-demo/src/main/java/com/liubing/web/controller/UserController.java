@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +28,16 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+	
+	@GetMapping("/me")
+	public Object getMe() {
+		return SecurityContextHolder.getContext().getAuthentication();
+	}
+	
+	@GetMapping("/me2")
+	public Object getMe(Authentication authentication) {
+		return authentication;
+	}
 
 	@GetMapping
 	@JsonView(UserSimpleView.class)

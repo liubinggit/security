@@ -28,7 +28,7 @@ public class MyUserDetailsService implements UserDetailsService {
 		
 		//密码加密
 		String password = passwordEncoder.encode("123456"); //数据查询出来的密码
-		User user = new User(username, password, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+		User user = new User(username, password,true,true,true,true, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
 		return user;
 	}
 
