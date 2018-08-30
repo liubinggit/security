@@ -33,9 +33,9 @@ public class LiubingAuthenticationFailureHandler extends SimpleUrlAuthentication
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
-		log.info("登录失败");
 		log.info("LoginType: "+securityProperties.getBrowser().getLoginType());
 		if(LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
+			log.info(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
 			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 			response.setContentType("application/json;charset=UTF-8");
 			response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
