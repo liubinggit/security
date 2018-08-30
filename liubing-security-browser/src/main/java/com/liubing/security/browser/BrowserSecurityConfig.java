@@ -18,7 +18,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+import com.liubing.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.liubing.security.core.properties.SecurityProperties;
+import com.liubing.security.core.validate.code.SmsCodeFilter;
 import com.liubing.security.core.validate.code.ValidateCodeFilter;
 
 
@@ -41,6 +43,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
+	
+	@Autowired
+	private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -65,24 +70,33 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 		validateCodeFilter.setSecurityProperties(securityProperties);
 		validateCodeFilter.afterPropertiesSet();
 		
+		SmsCodeFilter smsCodeFilter = new SmsCodeFilter();
+		smsCodeFilter.setAuthenticationFailureHandler(liubingAuthenticationFailureHandler);
+		smsCodeFilter.setSecurityProperties(securityProperties);
+		smsCodeFilter.afterPropertiesSet();
+		
 		http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
-				.formLogin()
-					.loginPage("/authentication/require")
-					.loginProcessingUrl("/authentication/from") //重新设置请求路径
-					.successHandler(liubingAuthenticationHandler)
-					.failureHandler(liubingAuthenticationFailureHandler)
-				.and()
-					.rememberMe()
-					.tokenRepository(persistentTokenRepository())
-					.tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
-					.userDetailsService(userDetailsService)
-				.and()
-					.authorizeRequests() // 下面授权的配置
-					.antMatchers("/authentication/require","/code/*",
-							securityProperties.getBrowser().getLoginPage()).permitAll() //登录页面可以不用权限登录
-					.anyRequest() // 任何请求
-					.authenticated()// 都需要身份认证
-				.and()
-				.csrf().disable(); //暂时先停止csrf
+			.addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
+			.formLogin()
+				.loginPage("/authentication/require")
+				.loginProcessingUrl("/authentication/*") //重新设置请求路径
+				.successHandler(liubingAuthenticationHandler)
+				.failureHandler(liubingAuthenticationFailureHandler)
+			.and()
+				.rememberMe()
+				.tokenRepository(persistentTokenRepository())
+				.tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
+				.userDetailsService(userDetailsService)
+			.and()
+				.apply(smsCodeAuthenticationSecurityConfig)
+			.and()
+				.authorizeRequests() // 下面授权的配置
+				.antMatchers("/authentication/require","/code/*",
+						securityProperties.getBrowser().getLoginPage()).permitAll() //登录页面可以不用权限登录
+				.anyRequest() // 任何请求
+				.authenticated()// 都需要身份认证
+			.and()
+			.csrf().disable();//暂时先停止csrf
+			
 	}
 }
