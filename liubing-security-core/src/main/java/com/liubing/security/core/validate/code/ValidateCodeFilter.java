@@ -60,7 +60,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
 		
 		urls.add("/authentication/from");
 
-		log.info("afterPropertiesSet urls:" + urls);
+		log.info("afterPropertiesSet 需要验证码验证的 urls:" + urls);
 	}
 
 	@Override

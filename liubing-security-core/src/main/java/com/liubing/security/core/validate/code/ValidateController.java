@@ -24,7 +24,7 @@ public class ValidateController {
 	@GetMapping("/code/{type}")
 	public void createCode(HttpServletRequest request, HttpServletResponse response, @PathVariable String type)
 			throws Exception {
-		log.info("createCode:"+ type + "CodeProcessor");
+		log.info(type+"创建验证码");
 		validateCodeProcessors.get(type + "CodeProcessor").create(new ServletWebRequest(request, response));
 	}
 

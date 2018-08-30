@@ -1,6 +1,7 @@
 package com.liubing.security.core.properties;
 
 public class SmsCodeProperties {
+	
 	private int length = 6;
 	private int expireIn = 60;
 	

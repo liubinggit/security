@@ -25,6 +25,7 @@ public abstract  class AbstractValidateCodeProcessor<C extends ValidateCode> imp
 		send(request, validateCode);
 	}
 
+	@SuppressWarnings("unchecked")
 	private C generate(ServletWebRequest request) {
 		String type = getProcessorType(request);
 		ValidateCodeGenerator validateCodeGenerator = validateCodeGenerators.get(type + "CodeGenerator");

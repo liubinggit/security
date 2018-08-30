@@ -12,7 +12,6 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 import com.liubing.security.core.properties.ImageCodeProperties;
 import com.liubing.security.core.properties.SecurityProperties;
-import com.liubing.security.core.validate.code.ValidateCode;
 import com.liubing.security.core.validate.code.ValidateCodeGenerator;
 
 public class ImageCodeGenerator implements ValidateCodeGenerator {

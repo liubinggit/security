@@ -1,10 +1,11 @@
 package com.liubing.security.core.properties;
 
 public class ImageCodeProperties extends SmsCodeProperties {
+
 	private int width = 67;
 	private int height = 23;
 	private String url = ""; // 图片提交需要验证的url,多个用,隔开
-	
+
 	public ImageCodeProperties() {
 		this.setLength(4);
 	}

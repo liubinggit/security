@@ -1,18 +1,9 @@
 package com.liubing.web.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.liubing.web.filter.TimeFilter2;
-import com.liubing.web.interceptor.TimeInterceptor;
 
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {

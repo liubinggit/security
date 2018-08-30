@@ -20,7 +20,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.liubing.dto.User;
 import com.liubing.dto.User.UserDetaView;
 import com.liubing.dto.User.UserSimpleView;
-import com.liubing.exception.UserNoExistException;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -55,10 +54,10 @@ public class UserController {
 	public User getOneUser(@ApiParam(value="用户id")@PathVariable Integer id) {
 		System.out.println("UserController getOneUser");
 		
-		if(false) {
+		boolean result = false;
+		if(result) {
 			//会被控制器异常拦截,会进入interceptor的postHandle
 //			throw new UserNoExistException(id);
-			
 			throw new RuntimeException("user id not exist");
 		}else {
 			User user = new User();
