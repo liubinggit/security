@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.liubing.security.browser.support.SimpleResponse;
 import com.liubing.security.core.properties.SecurityProperties;
+import com.liubing.security.core.properties.SecurityConstants;
 
 @RestController
 public class BrowserSecurityController {
@@ -33,7 +34,7 @@ public class BrowserSecurityController {
 	@Autowired
 	private SecurityProperties securityProperties;
 	
-	@RequestMapping("/authentication/require")
+	@RequestMapping(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
 	@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
 	public SimpleResponse requireAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		System.out.println("LoginPage:"+securityProperties.getBrowser().getLoginPage());

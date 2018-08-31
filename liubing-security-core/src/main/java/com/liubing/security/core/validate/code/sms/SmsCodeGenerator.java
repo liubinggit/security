@@ -3,6 +3,7 @@ package com.liubing.security.core.validate.code.sms;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 
@@ -11,6 +12,7 @@ import com.liubing.security.core.properties.SmsCodeProperties;
 import com.liubing.security.core.validate.code.ValidateCode;
 import com.liubing.security.core.validate.code.ValidateCodeGenerator;
 
+@Component("smsValidateCodeGenerator")
 public class SmsCodeGenerator implements ValidateCodeGenerator {
 
 	@Autowired

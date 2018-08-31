@@ -1,7 +1,5 @@
 package com.liubing.security.core.validate.code;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,19 +11,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
 
+import com.liubing.security.core.properties.SecurityConstants;
+
 @RestController
-public class ValidateController {
-	
+public class ValidateCodeController {
+
 	private Logger log = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	private Map<String, ValidateCodeProcessor> validateCodeProcessors;
+	private ValidateCodeProcessorHolder validateCodeProcessorHolder;
 
-	@GetMapping("/code/{type}")
+	@GetMapping(SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/{type}")
 	public void createCode(HttpServletRequest request, HttpServletResponse response, @PathVariable String type)
 			throws Exception {
-		log.info(type+"创建验证码");
-		validateCodeProcessors.get(type + "CodeProcessor").create(new ServletWebRequest(request, response));
+		log.info(type + "创建验证码");
+		validateCodeProcessorHolder.findValidateCodeProcessor(type).create(new ServletWebRequest(request, response));
 	}
 
 }

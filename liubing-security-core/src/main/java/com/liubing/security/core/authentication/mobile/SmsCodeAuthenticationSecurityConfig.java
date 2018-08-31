@@ -13,7 +13,11 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
-
+/**
+ * 短信验证码配置
+ * @author lb
+ *
+ */
 @Component
 public class SmsCodeAuthenticationSecurityConfig
 		extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {

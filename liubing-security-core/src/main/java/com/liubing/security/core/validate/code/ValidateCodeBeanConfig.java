@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import com.liubing.security.core.properties.SecurityProperties;
 import com.liubing.security.core.validate.code.image.ImageCodeGenerator;
 import com.liubing.security.core.validate.code.sms.DefaultSmsCodeSender;
-import com.liubing.security.core.validate.code.sms.SmsCodeGenerator;
 import com.liubing.security.core.validate.code.sms.SmsCodeSender;
 
 @Configuration
@@ -22,21 +21,12 @@ public class ValidateCodeBeanConfig {
 	 * 如果存在则不用new,不存在则会new
 	 * @return
 	 */
-	
 	@Bean
-	@ConditionalOnMissingBean(name = "imageCodeGenerator")
-	public ValidateCodeGenerator imageCodeGenerator() {
+	@ConditionalOnMissingBean(name = "imageValidateCodeGenerator")
+	public ValidateCodeGenerator imageValidateCodeGenerator() {
 		ImageCodeGenerator imageCodeGenerator = new ImageCodeGenerator();
 		imageCodeGenerator.setSecurityProperties(securityProperties);
 		return imageCodeGenerator;
-	}
-	
-	@Bean
-	@ConditionalOnMissingBean(name = "smsCodeGenerator")
-	public ValidateCodeGenerator smsCodeGenerator() {
-		SmsCodeGenerator ssmCodeGenerator = new SmsCodeGenerator();
-		ssmCodeGenerator.setSecurityProperties(securityProperties);
-		return ssmCodeGenerator;
 	}
 	
 	@Bean

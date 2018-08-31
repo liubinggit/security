@@ -9,18 +9,17 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.Assert;
+import com.liubing.security.core.properties.SecurityConstants;
 
 public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
-	public static final String LIUBING_FORM_MOBILE_KEY = "mobile";
-
-	private String mobileParameter = LIUBING_FORM_MOBILE_KEY;
+	private String mobileParameter = SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE;
 	
 	private boolean postOnly = true;
 
 
 	public SmsCodeAuthenticationFilter() {
-		super(new AntPathRequestMatcher("/authentication/mobile", "POST"));
+		super(new AntPathRequestMatcher(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE, "POST"));
 	}
 
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)

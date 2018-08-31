@@ -1,12 +1,13 @@
 package com.liubing.security.core.properties;
 
+import com.liubing.security.core.properties.SecurityConstants;
 
 public class BrowserProperties {
 
 	// 默认browser中的html
-	private String loginPage = "/login.html";
+	private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;
 
-	private LoginType loginType = LoginType.JSON;
+	private LoginResponseType loginType = LoginResponseType.JSON;
 	
 	private int rememberMeSeconds = 3600;
 
@@ -19,11 +20,11 @@ public class BrowserProperties {
 		this.loginPage = loginPage;
 	}
 
-	public LoginType getLoginType() {
+	public LoginResponseType getLoginType() {
 		return loginType;
 	}
 
-	public void setLoginType(LoginType loginType) {
+	public void setLoginType(LoginResponseType loginType) {
 		System.out.println("设置loginType: "+loginType);
 		this.loginType = loginType;
 	}
