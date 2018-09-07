@@ -11,6 +11,8 @@ public class BrowserProperties {
 
 	private int rememberMeSeconds = 3600;
 
+	private String signOutUrl;
+
 	private SessionProperties session = new SessionProperties();
 
 	public String getLoginPage() {
@@ -45,6 +47,14 @@ public class BrowserProperties {
 
 	public void setSession(SessionProperties session) {
 		this.session = session;
+	}
+
+	public String getSignOutUrl() {
+		return signOutUrl;
+	}
+
+	public void setSignOutUrl(String signOutUrl) {
+		this.signOutUrl = signOutUrl;
 	}
 
 }
