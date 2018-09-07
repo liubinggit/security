@@ -8,15 +8,17 @@ public class BrowserProperties {
 	private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;
 
 	private LoginResponseType loginType = LoginResponseType.JSON;
-	
+
 	private int rememberMeSeconds = 3600;
+
+	private SessionProperties session = new SessionProperties();
 
 	public String getLoginPage() {
 		return loginPage;
 	}
 
 	public void setLoginPage(String loginPage) {
-		System.out.println("设置loginPage:"+loginPage);
+		System.out.println("设置loginPage:" + loginPage);
 		this.loginPage = loginPage;
 	}
 
@@ -25,7 +27,7 @@ public class BrowserProperties {
 	}
 
 	public void setLoginType(LoginResponseType loginType) {
-		System.out.println("设置loginType: "+loginType);
+		System.out.println("设置loginType: " + loginType);
 		this.loginType = loginType;
 	}
 
@@ -36,7 +38,13 @@ public class BrowserProperties {
 	public void setRememberMeSeconds(int rememberMeSeconds) {
 		this.rememberMeSeconds = rememberMeSeconds;
 	}
-	
-	
+
+	public SessionProperties getSession() {
+		return session;
+	}
+
+	public void setSession(SessionProperties session) {
+		this.session = session;
+	}
 
 }

@@ -7,6 +7,10 @@ import com.liubing.security.core.validate.code.ValidateCode;
 
 public class ImageCode extends ValidateCode{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4297699063854443125L;
 	private BufferedImage image;
 	
 	public ImageCode(BufferedImage image, String code, LocalDateTime expireTime) {

@@ -1,9 +1,14 @@
 package com.liubing.security.core.validate.code;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class ValidateCode {
+public class ValidateCode implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2148158194694760115L;
 	private String code; //验证码里面字符串
 	private LocalDateTime expireTime; //图片有效期
 	

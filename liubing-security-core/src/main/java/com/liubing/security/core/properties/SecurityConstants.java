@@ -2,11 +2,12 @@ package com.liubing.security.core.properties;
 
 /**
  * 配置默认常量
+ * 
  * @author lb
  *
  */
 public interface SecurityConstants {
-	
+
 	/**
 	 * 默认的处理验证码的url前缀
 	 */
@@ -43,4 +44,9 @@ public interface SecurityConstants {
 	 * 发送短信验证码 或 验证短信验证码时，传递手机号的参数的名称
 	 */
 	public static final String DEFAULT_PARAMETER_NAME_MOBILE = "mobile";
+
+	/**
+	 * session失效默认的跳转地址
+	 */
+	public static final String DEFAULT_SESSION_INVALID_URL = "/session/invalid";
 }

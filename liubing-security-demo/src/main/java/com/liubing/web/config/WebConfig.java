@@ -37,5 +37,4 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 //		registrationBean.setUrlPatterns(urlPatterns);
 //		return registrationBean;
 //	}
-
 }
