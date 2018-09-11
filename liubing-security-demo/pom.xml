@@ -13,10 +13,9 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.liubing.security</groupId>
-			<artifactId>liubing-security-browser</artifactId>
+			<artifactId>liubing-security-app</artifactId>
 			<version>${liubing.security.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

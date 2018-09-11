@@ -1,4 +1,4 @@
-package com.liubing.security.browser.support;
+package com.liubing.security.core.support;
 
 public class SimpleResponse {
 

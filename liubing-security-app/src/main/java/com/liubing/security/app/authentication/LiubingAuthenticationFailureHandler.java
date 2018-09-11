@@ -1,4 +1,4 @@
-package com.liubing.security.browser.authentication;
+package com.liubing.security.app.authentication;
 
 import java.io.IOException;
 

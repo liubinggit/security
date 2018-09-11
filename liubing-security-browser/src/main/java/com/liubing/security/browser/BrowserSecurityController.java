@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.liubing.security.browser.support.SimpleResponse;
+import com.liubing.security.core.support.SimpleResponse;
 import com.liubing.security.core.properties.SecurityProperties;
 import com.liubing.security.core.properties.SecurityConstants;
 
