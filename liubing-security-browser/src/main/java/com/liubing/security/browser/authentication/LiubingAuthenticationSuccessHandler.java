@@ -22,8 +22,8 @@ import com.liubing.security.core.properties.SecurityProperties;
  * @author lb
  *
  */
-@Component("liubingAuthenticationHandler")
-public class LiubingAuthenticationHandler extends SavedRequestAwareAuthenticationSuccessHandler{
+@Component("liubingAuthenticationSuccessHandler")
+public class LiubingAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler{
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	

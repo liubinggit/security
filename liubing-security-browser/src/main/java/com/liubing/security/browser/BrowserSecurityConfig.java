@@ -45,7 +45,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 	private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 	
 	@Autowired
-	private SpringSocialConfigurer liubingSocialConfigurer;
+	private SpringSocialConfigurer liubingSocialSecurityConfig;
 	
 	@Autowired
 	private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
@@ -74,7 +74,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 		
 		http.apply(validateCodeSecurityConfig)
 			.and().apply(smsCodeAuthenticationSecurityConfig)
-			.and().apply(liubingSocialConfigurer)
+			.and().apply(liubingSocialSecurityConfig)
 			.and().sessionManagement()
 				.invalidSessionStrategy(invalidSessionStrategy) //session失效跳转地址
 				.maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions()) //设置同一用户最大数量
