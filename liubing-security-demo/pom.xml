@@ -13,7 +13,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.liubing.security</groupId>
-			<artifactId>liubing-security-app</artifactId>
+			<artifactId>liubing-security-browser</artifactId>
+			<version>${liubing.security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.liubing.security</groupId>
+			<artifactId>liubing-security-authorize</artifactId>
 			<version>${liubing.security.version}</version>
 		</dependency>
 		<dependency>

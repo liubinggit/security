@@ -9,6 +9,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.liubing.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.liubing.security.core.authorize.AuthorizeConfigManager;
 import com.liubing.security.core.properties.SecurityConstants;
 import com.liubing.security.core.properties.SecurityProperties;
 import com.liubing.security.core.validate.code.ValidateCodeSecurityConfig;
@@ -32,6 +33,9 @@ public class LiubingResourceServerConfig extends ResourceServerConfigurerAdapter
 	@Autowired
 	private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 	
+	@Autowired
+	private AuthorizeConfigManager authorizeConfigManager;
+	
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		
@@ -46,17 +50,8 @@ public class LiubingResourceServerConfig extends ResourceServerConfigurerAdapter
 		.and()
 		.apply(smsCodeAuthenticationSecurityConfig)
 			.and()
-		.authorizeRequests()
-			.antMatchers(
-					SecurityConstants.DEFAULT_UNAUTHENTICATION_URL, //需要身份认证url
-					SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,//手机登录
-					securityProperties.getBrowser().getLoginPage(),	//url登录
-					securityProperties.getBrowser().getSignOutUrl(),	//退出页面
-					SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*") //发送验证码url
-				.permitAll()
-			.anyRequest()
-			.authenticated()
-			.and()
 		.csrf().disable();
+		
+		authorizeConfigManager.config(http.authorizeRequests());
 	}
 }
