@@ -36,7 +36,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Component("liubingAuthenticationSuccessHandler")
 public class LiubingAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private ObjectMapper objectMapper;

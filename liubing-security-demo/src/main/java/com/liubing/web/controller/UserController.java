@@ -1,8 +1,14 @@
 package com.liubing.web.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
@@ -20,7 +26,14 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.liubing.dto.User;
 import com.liubing.dto.User.UserDetaView;
 import com.liubing.dto.User.UserSimpleView;
+import com.liubing.security.core.properties.SecurityProperties;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
@@ -28,9 +41,26 @@ import io.swagger.annotations.ApiParam;
 @RequestMapping("/user")
 public class UserController {
 	
+	@Autowired
+	private SecurityProperties securityProperties;
+	
 	@GetMapping("/me")
 	public Object getMe() {
 		return SecurityContextHolder.getContext().getAuthentication();
+	}
+	
+	@GetMapping("/jwtme")
+	public Object getJWTMe(Authentication user, HttpServletRequest request) throws ExpiredJwtException, UnsupportedJwtException, MalformedJwtException, SignatureException, IllegalArgumentException, UnsupportedEncodingException  {
+		securityProperties.getOauth2().getJwtSignKey();
+		String token = StringUtils.substringAfter(request.getHeader("Authorization"), "bearer ");
+		Claims claims = Jwts.parser().setSigningKey(securityProperties.getOauth2().getJwtSignKey().getBytes("UTF-8"))
+					.parseClaimsJws(token).getBody();
+		
+		String country = (String) claims.get("country");
+		
+		System.out.println(country);
+		
+		return user;
 	}
 	
 	@GetMapping("/me2")

@@ -7,7 +7,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.social.security.SpringSocialConfigurer;
 
 import com.liubing.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.liubing.security.core.properties.SecurityConstants;

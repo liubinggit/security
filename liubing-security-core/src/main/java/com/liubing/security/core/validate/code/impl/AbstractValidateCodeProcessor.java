@@ -4,8 +4,6 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.social.connect.web.HttpSessionSessionStrategy;
-import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -74,15 +72,15 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
 		validateCodeRepository.save(request, validateCode2, getValidateCodeType(request));
 	}
 
-	/**
-	 * 构建验证码放入session时的key
-	 * 
-	 * @param request
-	 * @return
-	 */
-	private String getSessionKey(ServletWebRequest request) {
-		return SESSION_KEY_PREFIX + getValidateCodeType(request).toString().toUpperCase();
-	}
+//	/**
+//	 * 构建验证码放入session时的key
+//	 * 
+//	 * @param request
+//	 * @return
+//	 */
+//	private String getSessionKey(ServletWebRequest request) {
+//		return SESSION_KEY_PREFIX + getValidateCodeType(request).toString().toUpperCase();
+//	}
 
 	/**
 	 * 发送校验码，由子类实现
